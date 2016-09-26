@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>小合集</title>
+
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+<style>
+	
+	ul,li{
+		list-style:none;
+	}
+	.edit-mod span{
+		margin:0 5px;
+	}
+	.edit-mod li{
+		margin-bottom:10px;
+	}
+	.pull-left {
+	  float: left !important;
+	}
+	.pull-right {
+	  float: right !important;
+	}
+
+</style>
+
+
+</head>
+
+<body>
+	<header>
+		<div class="logo">
+			<h1>小合集</h1>
+			<span>Beta</span>
+		</div>
+	</header>
+	<div class="container">
+		
+		<div class="xhj-edit" >
+		<div class="alert alert-danger" id="input-warn" style="opacity:0;">输入框不能为空</div>
+		<div class="edit-hd">
+			<button type="button" class="btn btn-primary pull-right" id="addItem"><span class="glyphicon glyphicon-plus"></span> &nbsp;&nbsp;添加项目</button>
+		</div>
+		   <table class="table" id="editItemBox">
+      		<caption>记录日常生活点滴</caption>
+	      <thead>
+	        <tr>
+	          <th>#</th>
+	          <th>日期</th>
+	          <th>产品</th>
+	          <th>价格</th>
+	          <th>操作</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr>
+	          <td><span class="xh">1</span></td>
+	          <td>
+	          	<div class="input-append date form_datetime">
+					    <input size="16" type="text" value="" readonly class="item-date">
+					    <span class="add-on"><i class="icon-th"></i></span>
+					</div>
+	          </td>
+	          <td><span class="col col-1"><input type="text" class="item-name" /></span></td>
+	          <td><span class="col col-1"><input type="text" class="item-price" /></span></td>
+	          <td><button type="button" class="btn btn-danger btn-sm">删除</button></td>
+	        </tr>
+	        
+	      </tbody>
+	    </table>
+	    <div class="edit-ft">
+			<button type="button" class="btn btn-primary pull-right" id="submit" >提交编辑</button>
+		</div>
+		</div>
+	</div>
+<script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="./js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	
+</script>
+<script>
+	$(function(){
+
+		//日历
+		var dateConfig = {
+			language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+		}
+
+		$(document).on('click','.form_datetime',function(){
+
+			$(this).datetimepicker(dateConfig)
+		})
+		/*$('.form_datetime').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+	    });*/
+		//添加项目
+		var $editItem = $('#editItemBox');
+		$('#addItem').on('click',function(){
+			var len = $editItem.find('tr').length
+			var itemTemp = `<tr>
+			<td><span class="xh">${len}</span></td>
+	          <td>
+	          	<div class="input-append date form_datetime">
+					    <input size="16" type="text" class="item-date" value="" readonly>
+					    <span class="add-on"><i class="icon-th"></i></span>
+					</div>
+	          </td>
+	          <td><span class="col col-1"><input type="text" class="item-name" /></span></td>
+	          <td><span class="col col-1"><input type="text" class="item-price" /></span></td>
+	          <td><button type="button" class="btn btn-danger btn-sm">删除</button></td>
+	        </tr>`;
+			$editItem.find('tbody').append(itemTemp)
+		})
+		//删除项目
+		$('#editItemBox').on('click','.btn-danger',function(){
+			$(this).parent().parent().remove()
+		});
+		//提交
+		$('#submit').on('click',function(){
+			var $row = $editItem.find('tbody > tr')
+			var items = [];
+			for(var i=0;i<$row.length;i++){
+				var obj = {};
+				var $thisRow = $($row[i])
+				obj.date = new Date($thisRow.find('.item-date').val()).toString()
+				obj.name = $thisRow.find('.item-name').val()
+				obj.price = $thisRow.find('.item-price').val()
+				if(!obj.date || !obj.name || !obj.price ) {
+					$('#input-warn').animate({opacity:1}, 1000)
+					setTimeout(function(){
+						$('#input-warn').animate({opacity:0}, 1000)
+					}, 3000);
+					return false;
+				}
+
+				items.push(obj)
+			}
+
+			$.post('./todypay.php',{
+				payitems:items
+			},function(data){
+
+			},'json')
+		})
+		
+	})
+</script>
+</body>
+</html>
