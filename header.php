@@ -5,7 +5,7 @@
 <title>小合集</title>
 
 <!-- 新 Bootstrap 核心 CSS 文件 -->
-<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="./bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
 <link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <link href="./css/layout.css" rel="stylesheet" media="screen">
 

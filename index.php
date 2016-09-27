@@ -28,7 +28,7 @@
 					</div>
 	          </td>
 	          <td><span class="col col-1"><input type="text" class="form-control item-name" /></span></td>
-	          <td><span class="col col-1"><input type="text" class="form-control item-price" /></span></td>
+	          <td><span class="col col-1"><input type="number" class="form-control item-price" /></span></td>
 	          <td><button type="button" class="btn btn-danger btn-sm">删除</button></td>
 	        </tr>
 	        
@@ -43,6 +43,7 @@
 	//日历
 	var dateConfig = {
 		language:  'zh-CN',
+		startDate:new Date(),
         weekStart: 1,
         todayBtn:  1,
 		autoclose: 1,
@@ -69,7 +70,7 @@
 					</div>
 	          </td>
 	          <td><span class="col col-1"><input type="text" class="form-control item-name" /></span></td>
-	          <td><span class="col col-1"><input type="text" class="form-control item-price" /></span></td>
+	          <td><span class="col col-1"><input type="number" class="form-control item-price" /></span></td>
 	          <td><button type="button" class="btn btn-danger btn-sm">删除</button></td>
 	        </tr>`;
 			$editItem.find('tbody').append(itemTemp);
