@@ -1,0 +1,72 @@
+#main-navbar {
+    background-color: #fff;
+    font-size: 14px;
+    height: 80px;
+    z-index: 9999;
+    position: relative;
+    box-shadow: 1px 1px 5px #797979;
+    margin-bottom:30px;
+}
+
+#main-navbar .navbar-header {
+    max-height: 70px
+}
+
+#main-navbar .navbar-default {
+    background-color: #fff;
+    border: none
+}
+
+#main-navbar .navbar-nav {
+    padding-top: 5px;
+    padding-left: 15px
+}
+
+#main-navbar .navbar-nav .current-lang-btn {
+    display: block;
+    height: 100%
+}
+
+#main-navbar .navbar-default .navbar-collapse {
+    width: 100%;
+    background: #fff
+}
+
+#main-navbar nav {
+    margin-bottom: 0;
+    padding-top: 10px
+}
+
+#main-navbar nav a {
+    text-decoration: none
+}
+
+#main-navbar nav a:hover {
+    font-weight: 700
+}
+
+#main-navbar nav .navbar-container {
+    margin-top: -1px;
+    height: auto;
+    padding-left: 0;
+    padding-right: 0
+}
+
+.edit-mod span{
+    margin:0 5px;
+}
+.edit-mod li{
+    margin-bottom:10px;
+}
+.pull-left {
+  float: left !important;
+}
+.pull-right {
+  float: right !important;
+}
+.xhj-main{
+    padding:0 20px;
+}
+#editItemBox .form-control{
+    width:200px;
+}

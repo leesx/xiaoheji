@@ -1,53 +1,9 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="utf-8">
-<title>小合集</title>
-
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-
-<style>
-	
-	ul,li{
-		list-style:none;
-	}
-	.edit-mod span{
-		margin:0 5px;
-	}
-	.edit-mod li{
-		margin-bottom:10px;
-	}
-	.pull-left {
-	  float: left !important;
-	}
-	.pull-right {
-	  float: right !important;
-	}
-	.xhj-main{
-		padding:0 20px;
-	}
-	#editItemBox .form-control{
-		width:200px;
-	}
-</style>
-
-
-</head>
-
-<body>
-	<header>
-		<div class="logo">
-			<h1>小合集</h1>
-			<span>Beta</span>
-		</div>
-	</header>
+<?php include('./header.php'); ?>
 	
 	<div class="container-fluid">
 		
 		<div class="xhj-main" >
-		<div class="alert alert-danger" id="input-warn" style="opacity:0;">输入框不能为空</div>
+		<div class="alert alert-danger" id="input-warn" style="position:fixed;top:10px;right:40px;opacity:0;">输入框不能为空</div>
 		<div class="edit-hd">
 			<button type="button" class="btn btn-primary pull-right" id="addItem"><span class="glyphicon glyphicon-plus"></span> &nbsp;&nbsp;添加项目</button>
 		</div>
@@ -83,13 +39,6 @@
 		</div>
 		</div>
 	</div>
-<script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="./js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script type="text/javascript">
-	
-</script>
 <script>
 	//日历
 	var dateConfig = {
@@ -155,11 +104,10 @@
 			$.post('./todypay.php',{
 				payitems:items
 			},function(data){
-
+				location.href="./list.php";
 			},'json')
 		})
 		
 	})
 </script>
-</body>
-</html>
+<?php include('./footer.php'); ?>

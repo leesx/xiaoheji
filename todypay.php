@@ -55,16 +55,20 @@ include_once("config.php");
 // 	}
 // }
 
- print_r($_POST);
+ //print_r($_POST);
  $payitems = $_POST['payitems'][0];
  //print_r($payitems['name']);
  //$query = mysql_query("insert into todaypay values (0,{$payitems['name']},{$payitems['date']},{$payitems['price']})");
  $name = $payitems['name'];
  $date = $payitems['date'];
  $price = $payitems['price'];
- $query = mysql_query("insert into todaypay values (".$name.",".$date.",".$price.")");
+ $str = "'{$date}'";
+ // `` sql中的引号   注意PHP中变量名加引号
+ $sql = "insert into todaypay (`name`,date,price) values ('{$name}','{$date}','{$price}')";
+ $query = mysql_query($sql);
  if($query){
- 	echo "rs";
+ 	$json = "{'rs':true}"; 
+ 	echo json_encode($json);
  }else{
  	die('Could not enter data: ' . mysql_error());
  }
@@ -72,13 +76,13 @@ include_once("config.php");
  mysql_close();
 
 //验证是否提交过
-function chk_mood($id){
-	$cookie = $_COOKIE['mood'.$id];
-	if($cookie){
-		$doit = 1;
-	}else{
-		$doit = 0;
-	}
-	return $doit;
-}
+// function chk_mood($id){
+// 	$cookie = $_COOKIE['mood'.$id];
+// 	if($cookie){
+// 		$doit = 1;
+// 	}else{
+// 		$doit = 0;
+// 	}
+// 	return $doit;
+// }
 ?>
