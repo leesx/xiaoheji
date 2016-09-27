@@ -2,7 +2,7 @@
 include_once("config.php");
 
 	 //$payitems = $_POST['payitems'][0];
-	 $sql = "select * from  todaypay";
+	 $sql = "select * from  todaypay order by id";
 	 $query = mysql_query($sql);
 	 if(!$query)
 		{

@@ -26,41 +26,60 @@
 	<script>
 		
 		$(function(){
-			var week = '日一二三四五六';
-			function fillZero(v){
-				return v < 10 ? '0'+v : v;
-			}
-			$.post('./listAjax.php',function(data){
-				console.log(data)
-				if(data.rs){
-					
-			        var d = data.data;
-			        var total = 0;
-			        if(d.length){
-			        	var temp = '';
-			        	$.each(d,function(index,item){
-			        		var date = new Date(item.date);
-			        		var d = ''
-			        		
-			        		var d = `${date.getFullYear()}-${fillZero(date.getMonth()+1)}-${fillZero(date.getDate())} ${date.getDay() ===0 || date.getDay()===6 ? `<span class="bg-danger">星期${week[date.getDay()]}</span>` : `<span class="bg-success">星期${week[date.getDay()]}</span>`} `;
-			        		var price = Number(item.price);
-			        		total+=price;
-			        		
-			        		temp += `<tr>
-							          <td><span class="xh">${item.id}</span></td>
-							          <td>
-							          	${d}
-							          </td>
-							          <td>${item.name}</td>
-							          <td>${price.toFixed(2)}</td>
-							          <td><button type="button" class="btn btn-danger btn-sm">删除</button></td>
-							        </tr>`;
-			        	})
-			        	temp +=`<tr><td colspan="3">合集 ${total.toFixed(2)} RMB</td></tr>`
-			        	$('#editItemBox > tbody').append(temp);
-			        }
+			
+			fetchData();
+			function fetchData(){
+				var week = '日一二三四五六';
+				function fillZero(v){
+					return v < 10 ? '0'+v : v;
 				}
-			},'json')
+				$.post('./listAjax.php',function(data){
+				
+					if(data.rs){
+						
+				        var d = data.data;
+				        var total = 0;
+				        if(d.length){
+				        	var temp = '';
+				        	$.each(d,function(index,item){
+				        		var date = new Date(item.date);
+				        		var d = ''
+				        		
+				        		var d = `${date.getFullYear()}-${fillZero(date.getMonth()+1)}-${fillZero(date.getDate())} ${date.getDay() ===0 || date.getDay()===6 ? `<span class="bg-danger">星期${week[date.getDay()]}</span>` : `<span class="bg-success">星期${week[date.getDay()]}</span>`} `;
+				        		var price = Number(item.price);
+				        		total+=price;
+				        		
+				        		temp += `<tr>
+								          <td><span class="xh">${item.id}</span></td>
+								          <td>
+								          	${d}
+								          </td>
+								          <td>${item.name}</td>
+								          <td>${price.toFixed(2)}</td>
+								          <td><button type="button" class="btn btn-danger btn-sm" data-id="${item.id}">删除</button></td>
+								        </tr>`;
+				        	})
+				        	temp +=`<tr><td colspan="3"></td><td>合集 ${total.toFixed(2)} RMB</td><td></td></tr>`
+				        	$('#editItemBox > tbody').empty().append(temp);
+				        }
+					}
+				},'json');
+				}
+			
+
+			//删除
+			$(document).on('click','.btn-danger',function(){
+				var id = $(this).data().id;
+				$.post('./deleteAjax.php',{
+					id:id
+				},function(data){
+					console.log(data)
+					if(data.rs){
+						console.log(data)
+						fetchData()
+					}
+				},'json')
+			})
 		})
 	</script>
 
